@@ -1,0 +1,1 @@
+# Samhammer.AspNetCore.HealthChecks.Prtg
