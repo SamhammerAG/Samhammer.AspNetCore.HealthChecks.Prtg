@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Samhammer Rules" Description="These ruleset defines Microsoft.CodeAnalysis.CSharp and StyleCop.Analyzers Rules for Samhammer" ToolsVersion="14.0">
+  <Include Path="minimumrecommendedrules.ruleset" Action="Default" />
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+	<Rule Id="SA1005" Action="None" />
+    <Rule Id="SA1028" Action="None" />
+    <Rule Id="SA1101" Action="None" />
+    <Rule Id="SA1127" Action="None" />
+	<Rule Id="SA1201" Action="None" />	
+	<Rule Id="SA1202" Action="None" />
+	<Rule Id="SA1204" Action="None" />
+	<Rule Id="SA1210" Action="None" />
+	<Rule Id="SA1512" Action="None" />
+	<Rule Id="SA1515" Action="None" />
+	<Rule Id="SA1600" Action="None" />
+	<Rule Id="SA1601" Action="None" />
+	<Rule Id="SA1602" Action="None" />
+	<Rule Id="SA1623" Action="None" />
+	<Rule Id="SA1633" Action="None" />
+    <Rule Id="SA1634" Action="None" />
+    <Rule Id="SA1635" Action="None" />
+    <Rule Id="SA1636" Action="None" />
+    <Rule Id="SA1637" Action="None" />
+    <Rule Id="SA1638" Action="None" />
+	<Rule Id="SA1652" Action="None" />
+	<Rule Id="SA0001" Action="None" />
+  </Rules>
+</RuleSet>
