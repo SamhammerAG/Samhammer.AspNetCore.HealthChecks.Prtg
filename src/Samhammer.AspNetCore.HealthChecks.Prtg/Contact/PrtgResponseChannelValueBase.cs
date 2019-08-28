@@ -1,6 +1,6 @@
 ﻿namespace Samhammer.AspNetCore.HealthChecks.Prtg.Contact
 {
-    public abstract class PrtgResponseBase
+    public abstract class PrtgResponseChannelValueBase
     {
     }
 }

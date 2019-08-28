@@ -18,51 +18,48 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg.Test
             var healthReport = new HealthReport(healthReportEntries, TimeSpan.Zero);
 
             var actual = PrtgResponseWriter.BuildPrtgResponseObject(healthReport);
-            actual.Should().BeOfType<PrtgResponseError>();
-            ((PrtgResponseError)actual).Error.Should().BeEquivalentTo("1");
-            ((PrtgResponseError)actual).Text.Should().BeEquivalentTo("test:\ndescription\nSystem.Exception: testException");
+            actual.Error.Should().Be(1);
+            actual.Text.Should().BeEquivalentTo("test:\ndescription\nSystem.Exception: testException");
         }
 
         [Fact]
         public void BuildPrtgResponseObject_Degraded()
         {
             var healthReportEntry =
-                new HealthReportEntry(HealthStatus.Degraded, "description", TimeSpan.FromMilliseconds(10), null, null);
+                new HealthReportEntry(HealthStatus.Degraded, null, TimeSpan.FromMilliseconds(10), null, null);
             var healthReportEntries = new Dictionary<string, HealthReportEntry> { { "test", healthReportEntry } };
             var healthReport = new HealthReport(healthReportEntries, TimeSpan.FromMilliseconds(15));
 
-            var expected = new List<PrtgResponseChannelValue>
+            var expected = new List<PrtgResponseChannelValueBase>
             {
-                new PrtgResponseChannelValue { Channel = "Status", Value = "Degraded" },
-                new PrtgResponseChannelValue { Channel = "TotalDuration", Value = "15" },
-                new PrtgResponseChannelValue { Channel = "test.Status", Value = "Degraded" },
-                new PrtgResponseChannelValue { Channel = "test.Duration", Value = "10" },
+                new PrtgResponseChannelValueTimeSpan { Channel = "TotalDuration", Value = 15 },
+                new PrtgResponseChannelValueTimeSpan { Channel = "test.Duration", Value = 10 },
             };
 
             var actual = PrtgResponseWriter.BuildPrtgResponseObject(healthReport);
-            actual.Should().BeOfType<PrtgResponseSuccess>();
-            ((PrtgResponseSuccess)actual).Result.Should().BeEquivalentTo(expected);
+            actual.Error.Should().Be(0);
+            actual.Text.Should().Be(PrtgResponse.DefaultText);
+            actual.Result.Should().BeEquivalentTo(expected, config => config.RespectingRuntimeTypes());
         }
 
         [Fact]
         public void BuildPrtgResponseObject_Healthy()
         {
             var healthReportEntry =
-                new HealthReportEntry(HealthStatus.Healthy, "description", TimeSpan.FromMilliseconds(10), null, null);
+                new HealthReportEntry(HealthStatus.Healthy, null, TimeSpan.FromMilliseconds(10), null, null);
             var healthReportEntries = new Dictionary<string, HealthReportEntry> { { "test", healthReportEntry } };
             var healthReport = new HealthReport(healthReportEntries, TimeSpan.FromMilliseconds(15));
 
-            var expected = new List<PrtgResponseChannelValue>
+            var expected = new List<PrtgResponseChannelValueBase>
             {
-                new PrtgResponseChannelValue { Channel = "Status", Value = "Healthy" },
-                new PrtgResponseChannelValue { Channel = "TotalDuration", Value = "15" },
-                new PrtgResponseChannelValue { Channel = "test.Status", Value = "Healthy" },
-                new PrtgResponseChannelValue { Channel = "test.Duration", Value = "10" },
+                new PrtgResponseChannelValueTimeSpan { Channel = "TotalDuration", Value = 15 },
+                new PrtgResponseChannelValueTimeSpan { Channel = "test.Duration", Value = 10 },
             };
 
             var actual = PrtgResponseWriter.BuildPrtgResponseObject(healthReport);
-            actual.Should().BeOfType<PrtgResponseSuccess>();
-            ((PrtgResponseSuccess)actual).Result.Should().BeEquivalentTo(expected);
+            actual.Error.Should().Be(0);
+            actual.Text.Should().Be(PrtgResponse.DefaultText);
+            actual.Result.Should().BeEquivalentTo(expected, config => config.RespectingRuntimeTypes());
         }
     }
 }

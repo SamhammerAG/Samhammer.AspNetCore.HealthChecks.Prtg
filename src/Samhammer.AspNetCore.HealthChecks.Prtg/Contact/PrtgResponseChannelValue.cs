@@ -1,9 +1,11 @@
 ﻿namespace Samhammer.AspNetCore.HealthChecks.Prtg.Contact
 {
-    public class PrtgResponseChannelValue
+
+
+    public abstract class PrtgResponseChannelValue<T> : PrtgResponseChannelValueBase where T : struct
     {
         public string Channel { get; set; }
 
-        public string Value { get; set; }
+        public T Value { get; set; }
     }
 }

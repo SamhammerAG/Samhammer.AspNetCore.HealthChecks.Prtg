@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -27,28 +25,29 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg
             return httpContext.Response.WriteAsync(text);
         }
 
-        public static PrtgResponseBase BuildPrtgResponseObject(HealthReport report)
+        public static PrtgResponse BuildPrtgResponseObject(HealthReport report)
         {
-            if (report.Status == HealthStatus.Healthy || report.Status == HealthStatus.Degraded)
-            {
-                var results = new List<PrtgResponseChannelValue>();
-                results.Add(new PrtgResponseChannelValue { Channel = "Status", Value = report.Status.ToString() });
-                results.Add(new PrtgResponseChannelValue { Channel = "TotalDuration", Value = report.TotalDuration.TotalMilliseconds.ToString(CultureInfo.InvariantCulture) });
-
-                foreach (var entry in report.Entries)
-                {
-                    results.Add(new PrtgResponseChannelValue { Channel = $"{entry.Key}.Status", Value = entry.Value.Status.ToString() });
-                    results.Add(new PrtgResponseChannelValue { Channel = $"{entry.Key}.Duration", Value = entry.Value.Duration.TotalMilliseconds.ToString(CultureInfo.InvariantCulture) });
-                }
-
-                return new PrtgResponseSuccess { Result = results };
-            }
+            var response = new PrtgResponse();
+            response.Error = report.Status == HealthStatus.Unhealthy ? 1 : 0;
 
             var errors = report.Entries
                 .Where(e => !string.IsNullOrWhiteSpace(e.Value.Description) || e.Value.Exception != null)
-                .Select(e => $"{e.Key}:\n{e.Value.Description}\n{e.Value.Exception}");
+                .Select(e => $"{e.Key}:\n{e.Value.Description}\n{e.Value.Exception}")
+                .ToList();
 
-            return new PrtgResponseError { Text = string.Join("\n", errors) };
+            if (errors.Any())
+            {
+                response.Text = string.Join("\n", errors);
+            }
+
+            response.Result.Add(new PrtgResponseChannelValueTimeSpan { Channel = "TotalDuration", Value = report.TotalDuration.TotalMilliseconds });
+
+            foreach (var entry in report.Entries)
+            {
+                response.Result.Add(new PrtgResponseChannelValueTimeSpan { Channel = $"{entry.Key}.Duration", Value = entry.Value.Duration.TotalMilliseconds });
+            }
+
+            return response;
         }
     }
 }

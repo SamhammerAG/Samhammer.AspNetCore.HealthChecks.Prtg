@@ -5,9 +5,9 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg.Contact
     public class PrtgResponseRoot
     {
         [JsonProperty("prtg")]
-        public PrtgResponseBase PrtgResponse { get; set; }
+        public PrtgResponse PrtgResponse { get; set; }
 
-        public PrtgResponseRoot(PrtgResponseBase responseBase)
+        public PrtgResponseRoot(PrtgResponse responseBase)
         {
             PrtgResponse = responseBase;
         }
