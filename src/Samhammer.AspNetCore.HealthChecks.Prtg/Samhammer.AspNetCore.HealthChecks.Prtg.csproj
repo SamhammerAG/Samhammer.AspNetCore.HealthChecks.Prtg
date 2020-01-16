@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/SamhammerAG/Samhammer.AspNetCore.HealthChecks.Prtg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SamhammerAG/Samhammer.AspNetCore.HealthChecks.Prtg</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
