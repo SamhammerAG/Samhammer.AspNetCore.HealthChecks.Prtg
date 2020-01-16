@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -22,6 +23,7 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg
             var text = JsonConvert.SerializeObject(prtgRoot, SerializerSettings);
 
             httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = HttpStatusCode.OK;
             return httpContext.Response.WriteAsync(text);
         }
 
