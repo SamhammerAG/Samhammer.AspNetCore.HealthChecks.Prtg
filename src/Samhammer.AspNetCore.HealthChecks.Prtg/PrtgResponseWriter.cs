@@ -23,7 +23,7 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg
             var text = JsonConvert.SerializeObject(prtgRoot, SerializerSettings);
 
             httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = HttpStatusCode.OK;
+            httpContext.Response.StatusCode = (int)HttpStatusCode.OK;
             return httpContext.Response.WriteAsync(text);
         }
 
