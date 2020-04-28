@@ -1,3 +1,5 @@
+﻿[![Build Status](https://travis-ci.com/SamhammerAG/Samhammer.AspNetCore.HealthChecks.Prtg.svg?branch=master)](https://travis-ci.com/SamhammerAG/Samhammer.AspNetCore.HealthChecks.Prtg)
+
 # Samhammer.AspNetCore.HealthChecks.Prtg
 - Creates the JSON response for the health checks in special PRTG format
 
