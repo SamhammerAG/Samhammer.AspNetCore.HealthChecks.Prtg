@@ -4,7 +4,7 @@
 - Creates the JSON response for the health checks in special PRTG format
 
 ## Usage
-- add nuget package Samhammer.AspNetCore.HealthChecks.Prtg
+- add nuget package [Samhammer.AspNetCore.HealthChecks.Prtg](https://www.nuget.org/packages/Samhammer.AspNetCore.HealthChecks.Prtg/)
 ```csharp
 app.UseHealthChecks("/health-prtg", new HealthCheckOptions
 {
