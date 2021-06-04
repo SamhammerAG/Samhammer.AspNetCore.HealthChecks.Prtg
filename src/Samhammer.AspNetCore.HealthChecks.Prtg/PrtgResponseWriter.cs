@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -33,8 +34,8 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg
             response.Error = report.Status == HealthStatus.Unhealthy ? 1 : 0;
 
             var errors = report.Entries
-                .Where(e => !string.IsNullOrWhiteSpace(e.Value.Description) || e.Value.Exception != null)
-                .Select(e => $"{e.Key}:\n{e.Value.Description}\n{e.Value.Exception}")
+                .Where(e => !string.IsNullOrWhiteSpace(e.Value.Description) || e.Value.Exception != null || e.Value.Status == HealthStatus.Unhealthy)
+                .Select(BuildErrorText)
                 .ToList();
 
             if (errors.Any())
@@ -50,6 +51,16 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg
             }
 
             return response;
+        }
+
+        private static string BuildErrorText(KeyValuePair<string, HealthReportEntry> entry)
+        {
+            if (!string.IsNullOrWhiteSpace(entry.Value.Description) || entry.Value.Exception != null)
+            {
+                return $"{entry.Key}:\n{entry.Value.Description}\n{entry.Value.Exception}";
+            }
+
+            return $"{entry.Key}:\n{entry.Value.Status}";
         }
     }
 }
