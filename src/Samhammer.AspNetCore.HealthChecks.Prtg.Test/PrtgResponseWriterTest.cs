@@ -23,6 +23,19 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg.Test
         }
 
         [Fact]
+        public void BuildPrtgResponseObject_Unhealthy_ErrorText()
+        {
+            var healthReportEntry =
+                new HealthReportEntry(HealthStatus.Unhealthy, null, TimeSpan.Zero, null, null);
+            var healthReportEntries = new Dictionary<string, HealthReportEntry> { { "test", healthReportEntry } };
+            var healthReport = new HealthReport(healthReportEntries, TimeSpan.Zero);
+
+            var actual = PrtgResponseWriter.BuildPrtgResponseObject(healthReport);
+            actual.Error.Should().Be(1);
+            actual.Text.Should().BeEquivalentTo("test:\nUnhealthy");
+        }
+
+        [Fact]
         public void BuildPrtgResponseObject_Degraded()
         {
             var healthReportEntry =
