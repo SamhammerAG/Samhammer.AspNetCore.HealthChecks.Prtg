@@ -7,8 +7,9 @@
     <Company>Samhammer AG</Company>
     <PackageProjectUrl>https://github.com/SamhammerAG/Samhammer.AspNetCore.HealthChecks.Prtg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SamhammerAG/Samhammer.AspNetCore.HealthChecks.Prtg</RepositoryUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.0.6</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>PRTG HealthChecks for .NET Core projects</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".\..\..\LICENSE" Pack="true" PackagePath="" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
