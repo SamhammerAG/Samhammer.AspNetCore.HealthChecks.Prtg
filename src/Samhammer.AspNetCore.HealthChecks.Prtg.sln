@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samhammer.AspNetCore.HealthChecks.Prtg", "Samhammer.AspNetCore.HealthChecks.Prtg\Samhammer.AspNetCore.HealthChecks.Prtg.csproj", "{435B8C94-CFD4-4786-9D5A-7E42BC56CA83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samhammer.AspNetCore.HealthChecks.Prtg.Test", "Samhammer.AspNetCore.HealthChecks.Prtg.Test\Samhammer.AspNetCore.HealthChecks.Prtg.Test.csproj", "{25000FEB-8688-400F-9839-1BC3ED9C37A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samhammer.AspNetCore.HealthChecks.Prtg.Test", "Samhammer.AspNetCore.HealthChecks.Prtg.Test\Samhammer.AspNetCore.HealthChecks.Prtg.Test.csproj", "{25000FEB-8688-400F-9839-1BC3ED9C37A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

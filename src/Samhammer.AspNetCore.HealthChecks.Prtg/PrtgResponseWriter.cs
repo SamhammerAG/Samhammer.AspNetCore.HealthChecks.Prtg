@@ -10,7 +10,7 @@ using Samhammer.AspNetCore.HealthChecks.Prtg.Contact;
 
 namespace Samhammer.AspNetCore.HealthChecks.Prtg
 {
-    public class PrtgResponseWriter
+    public static class PrtgResponseWriter
     {
         private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
         {
