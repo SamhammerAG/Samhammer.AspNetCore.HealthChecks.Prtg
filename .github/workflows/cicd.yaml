@@ -31,7 +31,6 @@ jobs:
         workdir: src
         reporter: github-check
         line_exclude_regex: ".*(warning|error) CS0618:.*"
-    - run: dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false"
     - run: dotnet pack -c Release -p:Version=${{ steps.tag.outputs.tag || '1.0' }} --output nuget-packages
     - if: startsWith(github.ref, 'refs/tags/') 
       run: cd nuget-packages; dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json
