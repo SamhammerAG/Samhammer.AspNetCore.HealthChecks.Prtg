@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Samhammer.AspNetCore.HealthChecks.Prtg.Contact;
 
 namespace Samhammer.AspNetCore.HealthChecks.Prtg
 {
     public static class PrtgResponseWriter
     {
-        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerOptions SerializerSettings = new JsonSerializerOptions
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
 
         public static Task WriteHealthCheckPrtgResponse(HttpContext httpContext, HealthReport report)
         {
             var prtgBase = BuildPrtgResponseObject(report);
             var prtgRoot = new PrtgResponseRoot(prtgBase);
-            var text = JsonConvert.SerializeObject(prtgRoot, SerializerSettings);
+            var text = JsonSerializer.Serialize(prtgRoot, SerializerSettings);
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.OK;
