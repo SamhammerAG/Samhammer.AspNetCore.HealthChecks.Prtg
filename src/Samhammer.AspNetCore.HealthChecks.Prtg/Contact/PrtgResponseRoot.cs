@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Samhammer.AspNetCore.HealthChecks.Prtg.Contact
 {
     public class PrtgResponseRoot
     {
-        [JsonProperty("prtg")]
+        [JsonPropertyName("prtg")]
         public PrtgResponse PrtgResponse { get; set; }
 
         public PrtgResponseRoot(PrtgResponse responseBase)
