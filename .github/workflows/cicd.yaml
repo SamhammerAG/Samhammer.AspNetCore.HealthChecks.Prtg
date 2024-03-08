@@ -20,7 +20,7 @@ jobs:
       id: tag
     - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
     - run: echo "::remove-matcher owner=csc::"
     - uses: reviewdog/action-setup@v1
     - run: dotnet --info
