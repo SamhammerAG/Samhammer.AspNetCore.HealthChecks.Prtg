@@ -35,6 +35,8 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg
 
             var errors = report.Entries
                 .Where(e => !string.IsNullOrWhiteSpace(e.Value.Description) || e.Value.Exception != null || e.Value.Status == HealthStatus.Unhealthy)
+                .OrderBy(e => e.Value.Exception != null ? 0 : 1)
+                .ThenBy(e => e.Value.Status)
                 .Select(BuildErrorText)
                 .ToList();
 
