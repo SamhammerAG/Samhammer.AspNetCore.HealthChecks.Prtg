@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Samhammer.AspNetCore.HealthChecks.Prtg.Contact;
 using Xunit;
@@ -52,7 +52,7 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg.Test
             var actual = PrtgResponseWriter.BuildPrtgResponseObject(healthReport);
             actual.Error.Should().Be(0);
             actual.Text.Should().Be(PrtgResponse.DefaultText);
-            actual.Result.Should().BeEquivalentTo(expected, config => config.RespectingRuntimeTypes());
+            actual.Result.Should().BeEquivalentTo(expected, config => config.PreferringRuntimeMemberTypes());
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace Samhammer.AspNetCore.HealthChecks.Prtg.Test
             var actual = PrtgResponseWriter.BuildPrtgResponseObject(healthReport);
             actual.Error.Should().Be(0);
             actual.Text.Should().Be(PrtgResponse.DefaultText);
-            actual.Result.Should().BeEquivalentTo(expected, config => config.RespectingRuntimeTypes());
+            actual.Result.Should().BeEquivalentTo(expected, config => config.PreferringRuntimeMemberTypes());
         }
     }
 }
