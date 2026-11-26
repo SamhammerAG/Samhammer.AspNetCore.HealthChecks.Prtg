@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
     timeout-minutes: 15
     env:
       DOTNET_NOLOGO: true
@@ -33,5 +35,11 @@ jobs:
         line_exclude_regex: ".*(warning|error) CS0618:.*"
     - run: dotnet test -c Release --no-build --logger "GitHubActions;report-warnings=false"
     - run: dotnet pack -c Release -p:Version=${{ steps.tag.outputs.tag || '1.0' }} --output nuget-packages
+      # Get a short-lived NuGet API key
+    - name: NuGet login (OIDC → temp API key)
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
     - if: startsWith(github.ref, 'refs/tags/') 
-      run: cd nuget-packages; dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json
+      run: cd nuget-packages; dotnet nuget push "**/*.nupkg" --api-key ${{steps.login.outputs.NUGET_API_KEY}} --skip-duplicate --source https://api.nuget.org/v3/index.json
